@@ -1,0 +1,27 @@
+# this will remove reversed but duplicate key/value pairs from a python dictionary
+# for example, if a dictionary looks like this: 
+# {k1:v1,
+# k2:v2,
+# k3:v3,
+# v1:k1,
+# v2:k2,
+# v3:k3} 
+# and you want something like this: 
+# {k1:v1,
+# k2:v2,
+# k3:v3}
+# however, it will not preserve 'k's as keys and 'v's as values
+
+duplicated_dictionary = {'k1':'v1','k2':'v2','k3':'v3','v1':'k1','v2':'k2','v3':'k3'}
+# duplicated_dictionary = {'k1':'v1','k2':'v7','k3':'v3','v1':'k1','v9':'k2','v3':'k3'} # works for more complicated option
+
+remove_list = []
+key_list = []
+for key,value in duplicated_dictionary.iteritems():
+    if key in key_list:
+        remove_list = remove_list + [key]
+    else: 
+        key_list = key_list + [key]
+    if value not in key_list:
+        key_list = key_list + [value]
+dup_free_dictionary = {key: value for key, value in duplicated_dictionary.iteritems() if key not in remove_list}
